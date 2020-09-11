@@ -36,8 +36,11 @@ public class FrontController extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		charset = config.getInitParameter("charset"); //web.xml 에있는 param-name 이름 서블릿 초기화시 캐릭터 인코딩 실행
 		list = new HashMap<String, Controller>();
-		list.put("/goodsInsert.do",new GoodsInsertController());
-		list.put("/goodsList.do",new GoodsListController());
+		list.put("/humanInsert.do",new HumanInsertController());
+		list.put("/humanMain.do",new HumanMainController());
+		list.put("/humanLogin.do",new HumanLoginController());
+		list.put("/auctionBoard.do",new AuctionBoardController());
+		list.put("/auctionBoardList.do",new AuctionBoardListController());
 	}
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(charset);
