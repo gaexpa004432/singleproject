@@ -8,33 +8,33 @@ import java.util.List;
 
 import common.ConnectionManager;
 
-public class AuctionDAO {
+public class BiddingDAO {
 	Connection conn;
 	PreparedStatement pstmt; // PreparedStatement는 Statement와 같은 기능을 수행하지만 가독성이 좋고 더 빠르다. ?기호 사용가능
 	ResultSet rs = null; // ResultSet은 결과의 집합이라 select할때 사용하기. 초기값 필요하다
 	
 	// 싱글톤
-	static AuctionDAO instance;
-	public static AuctionDAO getInstance() {
+	static BiddingDAO instance;
+	public static BiddingDAO getInstance() {
 		if(instance == null)
-			instance = new AuctionDAO();
+			instance = new BiddingDAO();
 			return instance;
 	}
-	public void insert(AuctionVO auction) {
+	public void insert(BiddingVO bidding) {
 		int r=0;
 		try {
 			// 1. DB 연결
 			Connection conn = ConnectionManager.getConnnect(); // ConnectionManager클래스의 getConnnect실행
 
 			// 2. sql 구문 실행
-			String sql = "insert into auction values(goods_seq.NEXTVAL,?,systimestamp + (INTERVAL '"+ auction.getLimit() +"' HOUR),?,?,?)";
+			String sql = "insert into bidding values(goods_seq.NEXTVAL,?,?,?)";
 					 
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, auction.getName());
-			psmt.setString(2, auction.getPicture());
-			psmt.setInt(3, auction.getStartprice());
-			psmt.setString(4, auction.getId());
+			psmt.setString(1, bidding.getNo());
+			psmt.setInt(2, bidding.getPrice());
+			psmt.setString(3, bidding.getId());
+			
 			r = psmt.executeUpdate();
 			
 			// 3. 결과 처리
@@ -56,7 +56,7 @@ public class AuctionDAO {
 		try {
 			conn = ConnectionManager.getConnnect();
 			String sql = "select no , name ,limit , picture , startprice , id ,(select max(b.price) from bidding b where a.no = b.no) " + 
-			"from auction a where systimestamp < limit"; // 컨+쉬+x 대문자, 컨+쉬+y 소문자 변환가능. 쿼리 엔터해서 쓸거면 앞에 공백 붙이기
+					"from auction a where systimestamp < limit"; // 컨+쉬+x 대문자, 컨+쉬+y 소문자 변환가능. 쿼리 엔터해서 쓸거면 앞에 공백 붙이기
 			pstmt = conn.prepareStatement(sql); // 미리 sql 구문이 준비가 되어야한다
 			rs = pstmt.executeQuery(); // select 시에는 executeQuery() 쓰기
 
