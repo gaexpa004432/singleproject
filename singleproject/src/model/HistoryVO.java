@@ -5,7 +5,7 @@ public class HistoryVO {
 	private String limit;
 	private String picture;
 	private String id;
-	private int no;
+	private String no;
 	public int getHis_no() {
 		return his_no;
 	}
@@ -30,13 +30,13 @@ public class HistoryVO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getNo() {
+	public String getNo() {
 		return no;
 	}
-	public void setNo(int no) {
+	public void setNo(String no) {
 		this.no = no;
 	}
-	public HistoryVO(int his_no, String limit, String picture, String id, int no) {
+	public HistoryVO(int his_no, String limit, String picture, String id, String no) {
 		super();
 		this.his_no = his_no;
 		this.limit = limit;

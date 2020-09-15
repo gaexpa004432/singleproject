@@ -9,10 +9,11 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form action="${pageContext.request.contextPath}/auctionBoard.do">
-사진	<input type="file">
-내용	<input name="name">
-시작가	<input name="startprice">
+사진	<input type="file"><br>내용<br>
+	<textarea rows="4" cols="50" name="name"></textarea><br>
+시작가	<input name="startprice"><br>
 경매기간 설정 : 
 <select name="day"> 
 <c:forEach begin="0" end="6" var="i">

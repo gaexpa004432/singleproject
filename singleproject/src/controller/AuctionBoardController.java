@@ -24,6 +24,8 @@ public class AuctionBoardController implements Controller {
 		auction.setLimit(day);
 		auction.setId((String)session.getAttribute("id"));
 		AuctionDAO.getInstance().insert(auction);
+		
+		response.sendRedirect("auctionBoardList.do");
 	}
 
 }

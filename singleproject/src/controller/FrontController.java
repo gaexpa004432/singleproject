@@ -42,6 +42,7 @@ public class FrontController extends HttpServlet {
 		list.put("/auctionBoard.do",new AuctionBoardController());
 		list.put("/auctionBoardList.do",new AuctionBoardListController());
 		list.put("/biddingInsert.do",new BiddingInsertController());
+		list.put("/auctionHistory.do",new AuctionHistoryController());
 	}
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding(charset);

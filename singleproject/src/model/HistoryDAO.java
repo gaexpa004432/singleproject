@@ -20,25 +20,34 @@ public class HistoryDAO {
 			instance = new HistoryDAO();
 			return instance;
 	}
-	public void insert(HistoryVO history) {
-		int r=0;
+	public List<HistoryVO> selectHistory() {
+		HistoryVO historyvo = null;
+		List<HistoryVO> list = new ArrayList<HistoryVO>();
 		try {
 			// 1. DB 연결
 			Connection conn = ConnectionManager.getConnnect(); // ConnectionManager클래스의 getConnnect실행
 
 			// 2. sql 구문 실행
-			String sql = "insert into bidding values(goods_seq.NEXTVAL,?,?,?)";
+			String sql = "select a.limit ,a.picture , b.id  ,a.no, max(b.price) from auction a , bidding b where a.no = b.no and systimestamp > a.limit group by b.id,a.limit ,a.picture ,a.no";
 					 
 			PreparedStatement psmt = conn.prepareStatement(sql);
 			
-			psmt.setString(1, bidding.getNo());
-			psmt.setInt(2, bidding.getPrice());
-			psmt.setString(3, bidding.getId());
+			rs = psmt.executeQuery();
+			while (rs.next()) { // 여러건 조회라서 while를 사용. next()로 한건 한건마다 true 인지 false인지 확인하고 이동함
+				historyvo = new HistoryVO(); // 레코드 한건을 resultVO에 담음
+				historyvo.setLimit(rs.getString(1));
+				historyvo.setPicture(rs.getString(2));
+				historyvo.setId(rs.getString(3)); 
+				historyvo.setNo(rs.getString(4)); 
+				historyvo.setHis_no(rs.getInt(5)); 
+				System.out.println(historyvo.getNo());
+				
+				list.add(historyvo); // resultVo를 list에 담음
+			}
+			System.out.println(list.size());
 			
-			r = psmt.executeUpdate();
 			
 			// 3. 결과 처리
-			System.out.println(r + " 건이 처리됨");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -47,7 +56,7 @@ public class HistoryDAO {
 			// 4. 연결 해제
 			ConnectionManager.close(conn);
 		}
-
+		return list;
 	}
 	
 	public List<AuctionVO> selectAll() { // 조회가 여러건이면 DeptVO를 list에 담음
