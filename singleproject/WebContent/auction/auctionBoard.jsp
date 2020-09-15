@@ -10,8 +10,8 @@
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/auctionBoard.do">
-사진	<input type="file"><br>내용<br>
+<form action="${pageContext.request.contextPath}/auctionBoard.do" enctype='multipart/form-data'>
+사진	<input type="file" name="filename"><br>내용<br>
 	<textarea rows="4" cols="50" name="name"></textarea><br>
 시작가	<input name="startprice"><br>
 경매기간 설정 : 
