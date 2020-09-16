@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -13,16 +14,16 @@ import javax.servlet.http.Part;
 import common.FileRenamePolicy;
 import model.AuctionDAO;
 import model.AuctionVO;
-
 public class AuctionBoardController implements Controller {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AuctionVO auction = new AuctionVO();
-		auction.setName(request.getParameter("name"));
+		auction.setName(request.getParameter("content"));
 		auction.setStartprice(Integer.parseInt(request.getParameter("startprice")));
 		HttpSession session = ((HttpServletRequest)request).getSession();
-	int day = Integer.parseInt(request.getParameter("day")) +Integer.parseInt(request.getParameter("time"));
+		
+		int day = Integer.parseInt(request.getParameter("day")) +Integer.parseInt(request.getParameter("time"));
 		System.out.println(day);
 		auction.setLimit(day);
 		auction.setId((String)session.getAttribute("id"));
@@ -42,6 +43,7 @@ public class AuctionBoardController implements Controller {
 		AuctionDAO.getInstance().insert(auction);
 		response.sendRedirect("auctionBoardList.do");
 	}
+	
 	private String getFileName(Part part) throws UnsupportedEncodingException {
 		for (String cd : part.getHeader("Content-Disposition").split(";")) {
 			if (cd.trim().startsWith("filename")) {

@@ -10,10 +10,10 @@
 </head>
 <body>
 
-<form action="${pageContext.request.contextPath}/auctionBoard.do" enctype='multipart/form-data'>
+<form method="post" name="frm" id="frm" action="${pageContext.request.contextPath}/auctionBoard.do" enctype='multipart/form-data'>
 사진	<input type="file" name="filename"><br>내용<br>
-	<textarea rows="4" cols="50" name="name"></textarea><br>
-시작가	<input name="startprice"><br>
+	<textarea rows="4" cols="50" name="content"></textarea><br>
+시작가	<input type="text" name="startprice"><br>
 경매기간 설정 : 
 <select name="day"> 
 <c:forEach begin="0" end="6" var="i">
