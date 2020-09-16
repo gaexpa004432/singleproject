@@ -174,7 +174,16 @@ height: 100%;
                 </li>
 
             </ul>
-
+			<li>
+                    <a href="/singleproject/auctionInfo.do">
+                       <i class="fa fa-info fa-2x"></i>
+                        <span class="nav-text">
+                            정보수정
+                        </span>
+                    </a>
+                </li>
+            </ul>
+			
             <ul class="logout">
                 <li>
                    <a href="/singleproject/index.jsp">

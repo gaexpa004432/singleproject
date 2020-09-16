@@ -28,7 +28,7 @@
                     <h1 class="mx-auto my-0 text-uppercase">Login</h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5"></h2>
         
-                        <form class="form-inline d-flex" action="${pageContext.request.contextPath}/humanLogin.do">
+                        <form class="form-inline d-flex" action="${pageContext.request.contextPath}/humanLogin.do" method="post">
                             <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" name="id" placeholder="id" />
                             <input class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" name="pw" placeholder="password"/><br>
                             <button class="btn btn-primary mx-auto" type="submit">Login</button>

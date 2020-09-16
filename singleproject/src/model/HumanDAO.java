@@ -104,5 +104,32 @@ public class HumanDAO {
 		}
 		return list; // 값을 리턴해줌
 	}
-	
+	public void update(HumanVO human) {
+		int r=0;
+		try {
+			// 1. DB 연결
+			Connection conn = ConnectionManager.getConnnect(); // ConnectionManager클래스의 getConnnect실행
+
+			// 2. sql 구문 실행
+			String sql = "update human set pw = ? , name = ?  where id = ?";
+					 
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			
+			psmt.setString(1, human.getPw());
+			psmt.setString(2, human.getName());
+			psmt.setString(3, human.getId());
+			r = psmt.executeUpdate();
+			
+			// 3. 결과 처리
+			System.out.println(r + " 건이 처리됨");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			// 4. 연결 해제
+			ConnectionManager.close(conn);
+		}
+
+	}
 }

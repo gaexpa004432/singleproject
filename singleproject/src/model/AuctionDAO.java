@@ -78,4 +78,57 @@ public class AuctionDAO {
 		}
 		return list; // 값을 리턴해줌
 	}
+	
+	public void delete(List<AuctionVO> auction) {
+		int r=0;
+		System.out.println("delete 실행중");
+		try {
+			// 1. DB 연결
+			for(AuctionVO list : auction) {
+			Connection conn = ConnectionManager.getConnnect(); // ConnectionManager클래스의 getConnnect실행
+			
+			// 2. sql 구문 실행
+			String sql = "delete auction where no = ?";
+			
+			PreparedStatement psmt = conn.prepareStatement(sql);
+			
+			psmt.setInt(1, list.getNo());
+		
+			r = psmt.executeUpdate();
+			
+			// 3. 결과 처리
+			System.out.println(r + " 건이 처리됨");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+		} finally {
+			// 4. 연결 해제
+			ConnectionManager.close(conn);
+		}
+		
+	}
+	public List<AuctionVO> selectHistory() { // 조회가 여러건이면 DeptVO를 list에 담음
+		List<AuctionVO> list = new ArrayList<AuctionVO>(); // 결과값을 저장할 list 변수 객체 선언
+
+		try {
+			conn = ConnectionManager.getConnnect();
+			String sql = "select * from auction where systimestamp > limit and no not in(select b.no from auction a,bidding b where a.no = b.no)"; // 컨+쉬+x 대문자, 컨+쉬+y 소문자 변환가능. 쿼리 엔터해서 쓸거면 앞에 공백 붙이기
+			pstmt = conn.prepareStatement(sql); // 미리 sql 구문이 준비가 되어야한다
+			rs = pstmt.executeQuery(); // select 시에는 executeQuery() 쓰기
+
+			while (rs.next()) { // 여러건 조회라서 while를 사용. next()로 한건 한건마다 true 인지 false인지 확인하고 이동함
+				AuctionVO auction = new AuctionVO(); // 레코드 한건을 resultVO에 담음
+				auction.setNo(rs.getInt(1)); 
+				list.add(auction); // resultVo를 list에 담음
+			}
+			delete(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionManager.close(rs, pstmt, conn);
+		}
+		return list; // 값을 리턴해줌
+	}
+	
 }

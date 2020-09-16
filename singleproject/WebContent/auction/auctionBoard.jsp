@@ -31,7 +31,7 @@ function removeChar(event) {
 <body align="center">
 <%@include file="/header.jsp" %>
 
-<form method="post" name="frm" id="frm" action="${pageContext.request.contextPath}/auctionBoard.do" enctype='multipart/form-data'>
+<form method="post" name="frm" id="frm" action="/singleproject/auctionBoard.do" enctype='multipart/form-data'>
 사진	<input type="file" name="filename" required><br>내용<br>
 	<textarea rows="4" cols="50" name="content" required></textarea><br>
 시작가	<input type="text" name="startprice" value="0" onkeydown='return onlyNumber(event)' onkeyup='removeChar(event)'><br>
@@ -43,7 +43,7 @@ function removeChar(event) {
 		
 </select> 
 <select name="time"> 
-<c:forEach begin="1" end="24" var="i">
+<c:forEach begin="0" end="24" var="i">
 	<option value="${ i }">${ i } 시간</option>
 </c:forEach>
 		
