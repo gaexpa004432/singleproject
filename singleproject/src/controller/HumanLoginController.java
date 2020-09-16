@@ -26,7 +26,7 @@ public class HumanLoginController implements Controller {
 		String page = "";		// 이동할 페이지 이름 변수 선언
 		if(resultVO == null) {  // id가 없는 경우
 			request.setAttribute("errormsg", "해당 ID가 없습니다.");
-			page = "/human/humanLogin.jsp";
+			page = "/index.jsp";
 			
 		} else {
 			if(memberVO.getPw().equals(resultVO.getPw())) {  // memberVO에 있는 pw와 resultVO의 pw를 비교해서 같으면 로그인성공
@@ -35,7 +35,7 @@ public class HumanLoginController implements Controller {
 				page = "/human/humanMain.jsp";
 			} else {	// 패스워드 불일치
 				request.setAttribute("errormsg", "패스워드 불일치");
-				page = "login.jsp";
+				page = "/index.jsp";
 			}
 		}
 		

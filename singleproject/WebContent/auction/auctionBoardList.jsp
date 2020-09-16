@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+ <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -65,13 +66,15 @@ $(function(){
 });
 </script>
 </head>
-<body>
-		<table id="tb1" border="1">
+<body align="center">
+<%@include file="/header.jsp" %>
+		<table id="tb1" border="1" align="center">
 		<thead><tr><th>글번호</th><th>사진</th><th>내용</th><th>종료일</th><th>시작입찰가</th><th>현재입찰가</th><th>작성자</th><th>입찰</th></tr></thead>
+		
 	<c:forEach items="${ boardList }" var="list" >
 		<tr><td>${ list.no }</td>
 		<c:if test="${not empty list.picture}">
-    		<td><img src="../images/${list.picture}" style="width:50px"></td>
+    		<td><img src="images/${list.picture}" style="width:250px"></td>
     	</c:if>
 		
 		
